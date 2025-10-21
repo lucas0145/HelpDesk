@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="../responsividade.css">
+    <link rel="shortcut icon" href="../Imagem/checklist.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div>
+        <h1>Cadastro BHM</h1>
+        <form action="../PHP/cadastro.php" method="POST">
+            <label for="">Matricula Simples</label>
+            <input type="text" name="matricula" oninput="formatMat(this)" required>
+            <label for="">Nome</label>
+            <input type="text" name="nome" oninput="formatMax45(this)" maxlength="45" required>
+            <label for="">Setor</label>
+            <select name="setor" required>
+                <option value="">Selecione</option>
+                <option value="CGF">CGF</option>
+                <option value="Estoque">Estoque</option>
+                <option value="Externo">Externo</option>
+                <option value="Financeiro">Financeiro</option>
+                <option value="Vendas 1">Vendas 1</option>
+                <option value="Vendas 2">Vendas 2</option>
+            </select>
+            <label for="">Ramal</label>
+            <input type="tel" name="ramal" oninput="formatRamal(this)" required>
+            <label for="">Senha</label>
+            <input type="password" oninput="formatMax45(this)" maxlength="45" name="senha">
+            <section  id="btnSubmit">
+                <input type="submit" name="submit">
+            </section>
+            <a href="../Login/login.html">Login</a>
+            
+        </form>
+    </div>
+
+    <script src="cadastro.js"></script>
+</body>
+</html>

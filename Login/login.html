@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../responsividade.css">
+    <link rel="shortcut icon" href="/Imagem/checklist.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Desk BHM</title>
+</head>
+<body>
+    
+    <div>
+        <h1>Login</h1>
+        <form action="../PHP/login.php" method="POST">
+            <label for="">Matricula Simples</label>
+            <input type="text" name="matricula" oninput="formatMat(this)">
+            <label for="">Senha</label>
+            <input type="password" name="senha" maxlength="45" oninput="formatMax45(this)">
+            <div id="btnSubmit">
+                <input type="submit" name="submit" value="Enviar" onclick="erroLogin()">
+            </div>
+            <a href="../Cadastro/cadastro.html">Cadastro</a>
+        </form>
+
+        <a href="" onclick="recSenha()" id="esqueciSenha">Esqueci a senha</a>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

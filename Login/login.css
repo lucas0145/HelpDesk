@@ -1,0 +1,154 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body{
+
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100vw;
+    height: 100vb;
+    background-color:#00375e;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+
+    div{
+        background-color: #f03740;
+        color: white;
+        width: 70vw;
+        height: 100vb;
+        margin-top: 10vb;
+        border-radius: 50px 50px 0px 0px;
+        padding: 5% 8%;
+
+    }
+
+    h1{
+        margin-bottom: 12vb;
+        font-size: 3rem;
+    }
+
+    form{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(1fr,3);
+        gap: 5vb 3vw;
+        padding: 0 10%;
+        
+        
+        >*{
+            border-radius: 10px;
+            border: #f78837 3px solid;
+        }
+        label{
+            font-size: 2rem;
+            border: none;
+        }
+        input{
+            font-size: 1.5rem;
+            padding-left: 10px;
+        }
+        input:focus{
+            border: #f78837 3px solid;
+            outline: none;
+        }
+        input[name="matricula"] {
+            width: 8vw;
+        }
+        input[name="senha"] {
+            width: 15vw;
+        }
+
+        #btnSubmit{
+            height: 8vb;
+            width: 15vw;
+            position: relative;
+            justify-self: center;
+            transition: 0.5s all;
+            margin-top: 7vb;
+            border: none;
+            overflow: hidden;
+        }
+        #btnSubmit input{
+            width: 15vw;;
+            cursor: pointer;
+            height: 8vb;
+            background-color: transparent;
+            color: white;
+            font-size: 2rem;
+            border: #f78837 solid 8px;
+            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 2;
+        }
+        #btnSubmit::before{
+            content: "";
+            display: block;
+            width: 0;
+            height: 8vb;
+            position: absolute;
+            left: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #f78837;
+            transition: 0.5s all;
+            z-index: 1;
+        }
+        #btnSubmit:hover::before{
+            width: 105%;
+        }
+        a{
+            height: 8vb;
+            width: 15vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            border: #f78837 solid 7px;
+            border-radius: 10px;
+            background-color: transparent;
+            font-size: 2rem;
+            justify-self: center;
+            text-align: center;
+            align-self: flex-end;
+            line-height: 50%;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+        }
+        a::after{
+            content: "";
+            display: block;
+            width: 0%;
+            height: 110%;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #f78837;
+            transition: 0.5s all;
+            z-index: -1;
+        }
+        a:hover::after{
+            width: 100%;
+        }
+    }
+}
+
+#esqueciSenha{
+    font-size: 2rem;
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 7vb;
+}
+#esqueciSenha:hover{
+    font-weight: bold;
+}

@@ -44,11 +44,40 @@
 
     <section id="sec-histo">
         <h1>Lista de Chamados</h1>
-        
+
+        <form action="../PHP/sort.php" method="POST">
+
+            <label>Select * from tbl_chamados </label>
+            <!-- <select name="sortSelect" id="sortSelect" oninput="sortFnc(this)">
+                <option value="">Selecione</option>
+                <option value="id_chamada">Id Chamada</option>
+                <option value="id_user">Id Usuario</option>
+                <option value="prioridade">Prioridade</option>
+                <option value="dataHora">Data e Hora</option>
+                <option value="assunto">Assunto</option>
+                <option value="status">Status</option>
+            </select> -->
+
+            <input type="text" name="sortComand" placeholder="order by/ group by/ where..." id="sortSelect">
+            <input type="submit" value="Enviar" onclick="sortFnc()">
+        </form>
+
+            
         <article>
+
             <?php
 
-                $result = mysqli_query($conn, "select * from tbl_chamados order by prioridade");
+                error_reporting(0);
+                if ($_SESSION["sortElement"] == "") {
+                    $_SESSION["sortElement"] = "";
+                }
+                error_reporting(1);
+
+                $sortElement = $_SESSION["sortElement"];
+
+                // echo $sortElement;
+
+                $result = mysqli_query($conn, "select * from tbl_chamados ".$sortElement);
 
                 while($row = $result->fetch_assoc()) {  
 
@@ -65,6 +94,13 @@
                                                 <option value='CONCLUIDO'>CONCLUIDO</option>
                                                 <option value='CANCELADO'>CANCELADO</option>
                                             </select>
+                                            <select name='responsavel' id='' required>
+                                                <option value=''>".$row['responsavel']."</option>
+                                                <option value='Lucas Balmant'>Lucas Balmant</option>
+                                                <option value='Carlos Eduardo'>Carlos Eduardo</option>
+                                                <option value='João Pedro'>João Pedro</option>
+                                                <option value='Sem Responsavel'>Sem Responsavel</option>
+                                            </select>
                                             <input type='submit' name='submit'>
                                         </form>
                                 </div>";
@@ -72,7 +108,6 @@
             ?>
         </article>
     </section>
-
 
     <script src="admin.js"></script>
 </body>

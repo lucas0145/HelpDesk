@@ -70,7 +70,7 @@
 
             <span>
                 <label for="">Assunto</label>
-                <input type="text" name="title" required>
+                <input type="text" name="title" maxlength="45" required>
             </span>
 
             <span id="spanDesc">
@@ -94,8 +94,10 @@
                 while($row = $result->fetch_assoc()) {  
 
                     echo        "<div>
-                                    <h1>".$row["assunto"]."</h1> 
-                                    <h2>Prioridade: "; switch ($row['prioridade']) {
+                                    <h1>".$row["assunto"]."</h1> <h2>Id Chamada: ".$row["id_chamada"]."</h2>
+                                    <p class='pDesc'>".$row["descricao"]."</p> 
+                                    <p><b>".$row["dataHora"]."</b></p> 
+                                    <p><b>Prioridade: "; switch ($row['prioridade']) {
                                                             case 1:
                                                                 echo "Alta";
                                                                 break;
@@ -108,9 +110,8 @@
                                                             default:
                                                                 # code...
                                                                 break;
-                                                        }echo "</h2>  
-                                    <h2>Id Chamada: ".$row["id_chamada"]."</h2>
-                                    <p class='pDesc'>".$row["descricao"]."</p> <p><b>".$row["dataHora"]."</b></p> <p><b>".$row["status"]."</b></p>
+                                                        }echo " </b></p>
+                                    <p><b>".$row["status"]."</b></p>
                                 </div>";
                 }
             ?>

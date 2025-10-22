@@ -11,7 +11,7 @@
 
     echo $pri ."--". $title ."--". $desc ."--". $data;
 
-    $result = mysqli_query($conn, "insert into tbl_chamados values (null, '$id', '$pri', '$data' ,'$title' ,'$desc', 'EM PROGRESSO')");
+    $result = mysqli_query($conn, "insert into tbl_chamados values (null, '$id', '$pri', '$data' ,'$title' ,'$desc', 'EM PROGRESSO', 'Sem Responsavel')");
 
     header("Location: ../Inicio/inicio.php");
 ?>

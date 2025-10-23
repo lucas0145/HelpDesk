@@ -2,8 +2,10 @@
     include_once("../PHP/conn.php");
 
     session_start();
+    //Pega o id do usuario guardado na sessao
     $id = $_SESSION['id'];
 
+    //Pega informaçoes no banco de dados
     $result = mysqli_query($conn, "select * from tbl_users where id=" . $id);
 
     while($row = $result->fetch_assoc()) {
@@ -39,7 +41,7 @@
             <a onclick="histFnc(this)">Lista de Chamados</a>
         </div>
 
-        <a href="../index.html" id="btnSair">Sair</a>
+        <a href="../index.html" id="btnSair" onclick="sairFnc()">Sair</a>
     </nav>
 
     <section id="sec-histo">
@@ -48,6 +50,8 @@
         <form action="../PHP/sort.php" method="POST">
 
             <label>Select * from tbl_chamados </label>
+
+            <!-- Codigo antigo que eu fiquei com medo de apagar//Codigo antigo que eu fiquei com medo de apagar -->
             <!-- <select name="sortSelect" id="sortSelect" oninput="sortFnc(this)">
                 <option value="">Selecione</option>
                 <option value="id_chamada">Id Chamada</option>
@@ -67,21 +71,28 @@
 
             <?php
 
+                //Verifica se o elemento e nada e ignora o erro
                 error_reporting(0);
                 if ($_SESSION["sortElement"] == "") {
                     $_SESSION["sortElement"] = "";
                 }
                 error_reporting(1);
 
+                //Pega informaçao da sessão
                 $sortElement = $_SESSION["sortElement"];
 
                 // echo $sortElement;
 
+                //Pega mais informaçaoes do banco de dados
                 $result = mysqli_query($conn, "select * from tbl_chamados ".$sortElement);
 
+                //Adapta as informaçoes do sql
                 while($row = $result->fetch_assoc()) {  
 
+                    //Guarda na sessão o id da chamada
                     $_SESSION["id_chamada"] = $row["id_chamada"];  
+
+                    //Cria uma div para cada chamado com informaçoes nessessarias
                     echo        "<div>
                                     <h1>".$row["assunto"]."</h1> <h2>Id_User: ".$row["id_user"]."</h2> <h2>Id_Chamado: ".$row["id_chamada"]."</h2>
                                     <p>".$row["descricao"]."</p> 

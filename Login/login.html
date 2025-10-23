@@ -14,11 +14,11 @@
         <h1>Login</h1>
         <form action="../PHP/login.php" method="POST">
             <label for="">Matricula Simples</label>
-            <input type="text" name="matricula" oninput="formatMat(this)">
+            <input type="text" name="matricula" id="inpMatricula" oninput="formatMat(this)">
             <label for="">Senha</label>
-            <input type="password" name="senha" maxlength="45" oninput="formatMax45(this)">
+            <input type="password" name="senha" maxlength="45" id="inpSenha" oninput="formatMax45(this)">
             <div id="btnSubmit">
-                <input type="submit" name="submit" value="Enviar" onclick="erroLogin()">
+                <input type="submit" name="submit" value="Enviar" onclick="salvaLogin()">
             </div>
             <a href="../Cadastro/cadastro.html">Cadastro</a>
         </form>

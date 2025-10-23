@@ -2,10 +2,13 @@
     include_once("../PHP/conn.php");
 
     session_start();
+    //Pega o id do usuario guardado na sessao
     $id = $_SESSION['id'];
 
+    //Pega as informaçoes no banco de dados
     $result = mysqli_query($conn, "select * from tbl_users where id=" . $id);
 
+    //Recebe as informaçoes do banco de dados
     while($row = $result->fetch_assoc()) {
         
         $nome = $row["nome"];
@@ -42,7 +45,7 @@
             <a onclick="histFnc(this)">Histórico</a>
         </div>
 
-        <a href="../index.html" id="btnSair">Sair</a>
+        <a href="../index.html" id="btnSair" onclick="sairFnc()">Sair</a>
     </nav>
 
     <section id="sec-welcome">
@@ -89,28 +92,32 @@
         <article>
             <?php
 
+                //Pega mais informaçaoes do banco de dados
                 $result = mysqli_query($conn, "select * from tbl_chamados where id_user=" . $id);
 
+                //Adapta as informaçoes do sql
                 while($row = $result->fetch_assoc()) {  
 
+                    //Cria uma div para cada chamado com informaçoes nessessarias
                     echo        "<div>
                                     <h1>".$row["assunto"]."</h1> <h2>Id Chamada: ".$row["id_chamada"]."</h2>
                                     <p class='pDesc'>".$row["descricao"]."</p> 
                                     <p><b>".$row["dataHora"]."</b></p> 
-                                    <p><b>Prioridade: "; switch ($row['prioridade']) {
-                                                            case 1:
-                                                                echo "Alta";
-                                                                break;
-                                                            case 2:
-                                                                echo "Média";
-                                                                break;
-                                                            case 3:
-                                                                echo "Baixa";
-                                                                break;
-                                                            default:
-                                                                # code...
-                                                                break;
-                                                        }echo " </b></p>
+                                    <p><b>Prioridade: "; 
+                                    //Codigo para troca prioridade numerica(1,2 e 3) para escrita(alta,media e baixa)
+                                    switch ($row['prioridade']) {
+                                        case 1:
+                                            echo "Alta";
+                                            break;
+                                        case 2:
+                                            echo "Média";
+                                            break;
+                                        case 3:
+                                            echo "Baixa";
+                                            break;
+                                        default:
+                                            break;
+                                    }echo " </b></p>
                                     <p><b>".$row["status"]."</b></p>
                                 </div>";
                 }

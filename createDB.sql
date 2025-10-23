@@ -4,6 +4,7 @@ use db_bhm;
 CREATE TABLE `tbl_chamados` (
   `id_chamada` int NOT NULL AUTO_INCREMENT,
   `id_user` int NOT NULL,
+  FOREIGN KEY (`id_user`) REFERENCES tbl_users(`id_user`) ON DELETE CASCADE,
   `prioridade` tinyint(1) NOT NULL,
   `dataHora` datetime NOT NULL,
   `assunto` varchar(45) NOT NULL,

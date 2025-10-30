@@ -49,20 +49,43 @@
 
         <form action="../PHP/sort.php" method="POST">
 
-            <label>Select * from tbl_chamados </label>
+            <label>Sort By: </label>
 
-            <!-- Codigo antigo que eu fiquei com medo de apagar//Codigo antigo que eu fiquei com medo de apagar -->
-            <!-- <select name="sortSelect" id="sortSelect" oninput="sortFnc(this)">
-                <option value="">Selecione</option>
-                <option value="id_chamada">Id Chamada</option>
-                <option value="id_user">Id Usuario</option>
+            <select name="sortTxt" id="sortInp">
+                <option value="">Coluna MySQL</option>
+                <option value="id_user">Usuario</option>
                 <option value="prioridade">Prioridade</option>
                 <option value="dataHora">Data e Hora</option>
-                <option value="assunto">Assunto</option>
                 <option value="status">Status</option>
-            </select> -->
+                <option value="responsavel">Responsavel</option>
+            </select>
 
-            <input type="text" name="sortComand" placeholder="order by/ group by/ where..." id="sortSelect">
+            <select name="sortDir" id="sortDir">
+                <option value="asc">Crescente</option>
+                <option value="desc">Decrescente</option>
+            </select>
+
+            <br><br>
+
+            <label>Group by: </label>
+
+            <select name="groupTxt" id="groupTxt">
+                <option value="">Coluna MySQL</option>
+                <option value="id_user">Usuario</option>
+                <option value="prioridade">Prioridade</option>
+                <option value="dataHora">Data e Hora</option>
+                <option value="status">Status</option>
+                <option value="responsavel">Responsavel</option>
+            </select>
+
+            <select name="groupMeth" id="groupMeth">
+                <option value="">Group By Method</option>
+                <option value="sum(x)">Soma</option>
+                <option value="count(x)">Contar</option>
+            </select>
+
+            <br><br>
+
             <input type="submit" value="Enviar" onclick="sortFnc()">
         </form>
 
@@ -72,28 +95,32 @@
             <?php
 
                 //Verifica se o elemento e nada e ignora o erro
-                error_reporting(0);
-                if ($_SESSION["sortElement"] == "") {
-                    $_SESSION["sortElement"] = "";
-                }
                 error_reporting(1);
 
                 //Pega informaçao da sessão
                 $sortElement = $_SESSION["sortElement"];
+                $sortTxt = $_SESSION["sortTxt"];
+                $groupTxt = $_SESSION["groupTxt"];
+                $groupMeth = $_SESSION["groupMeth"];
 
-                // echo $sortElement;
+                // echo $groupTxt. " -- ". $groupMeth . "--" . $sortTxt . "<br>";
+                // echo "select * $groupMeth from tbl_chamados as c left join tbl_users as u on c.id_user = u.id $groupTxt $sortTxt <br>";
 
                 //Pega mais informaçaoes do banco de dados
-                $result = mysqli_query($conn, "select * from tbl_chamados ".$sortElement);
+                $result = mysqli_query($conn, "select * $groupMeth from tbl_chamados as c left join tbl_users as u on c.id_user = u.id $groupTxt $sortTxt"  /*$sortElement*/);
+                
+                // echo $groupTxt;
 
-                //Adapta as informaçoes do sql
-                while($row = $result->fetch_assoc()) {  
+                if ($groupTxt == "") {
+                    
+                    //Adapta as informaçoes do sql
+                    while($row = $result->fetch_assoc()) {  
 
-                    //Guarda na sessão o id da chamada
-                    $_SESSION["id_chamada"] = $row["id_chamada"];  
+                        //Guarda na sessão o id da chamada
+                        $_SESSION["id_chamada"] = $row["id_chamada"];  
 
-                    //Cria uma div para cada chamado com informaçoes nessessarias
-                    echo        "<div>
+                        //Cria uma div para cada chamado com informaçoes nessessarias
+                        echo    "<div>
                                     <h1>".$row["assunto"]."</h1> <h2>Id_User: ".$row["id_user"]."</h2> <h2>Id_Chamado: ".$row["id_chamada"]."</h2>
                                     <p>".$row["descricao"]."</p> 
                                     <p><b>".$row["dataHora"]."</b></p> <p><b>Prioridade: ".$row["prioridade"]."</b></p>
@@ -115,9 +142,29 @@
                                             <input type='submit' name='submit'>
                                         </form>
                                 </div>";
+                    }
+                }else {
+
+                    while($row = $result->fetch_assoc()) {  
+                        
+                        //Guarda na sessão o id da chamada
+                        $_SESSION["id_chamada"] = $row["id_chamada"];  
+
+                        $colName = explode('(', $groupMeth)[1];
+                        $colName = explode(')', $colName)[0];
+
+                        // echo $groupMeth;
+
+                        //Cria uma div para cada chamado com informaçoes nessessarias
+                        echo    "<h1 class='groupResult'>
+                                    Encontrado ". $row[substr($groupMeth, 2, strlen($groupMeth))] ." chamado  com ". $colName ." ". $row[$colName] . "
+                                </h1>";
+
+                    }
                 }
             ?>
         </article>
+
     </section>
 
     <script src="admin.js"></script>
